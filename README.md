@@ -8,7 +8,7 @@ APP开发环境安装
 切换NPM安装源为淘宝镜像
 
 ```bash
-npm config set registry http://registry.cnpmjs.org`
+npm config set registry http://registry.cnpmjs.org
 npm info underscore  # 如果上面配置正确这个命令会有字符串response
 ```
 
