@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic','starter.controllers','cargoship.controllers','dangerousGoods.controllers','emergencySupport.controllers'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$ionicPopup,$location,$ionicHistory) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -21,6 +21,35 @@ angular.module('starter', ['ionic','starter.controllers','cargoship.controllers'
       StatusBar.styleDefault();
     }
   });
+  $ionicPlatform.registerBackButtonAction(function (e) {
+    function showConfirm() {
+      var confirmPopup = $ionicPopup.confirm({
+        title: '<strong>退出应用?</strong>',
+        template: '你确定要退出应用吗?',
+        okText: '退出',
+        cancelText: '取消'
+      });
+      confirmPopup.then(function (res) {
+        if (res) {
+          ionic.Platform.exitApp();
+        } else {
+          // Don't close
+        }
+      });
+    }
+    //判断处于哪个页面时双击退出
+    if ($location.path() == '/homepage' ) {
+      showConfirm();
+    } else if ($ionicHistory.backView() ) {
+      $ionicHistory.goBack();
+    } else {
+      // This is the last page: Show confirmation popup
+      showConfirm();
+    }
+    e.preventDefault();
+    return false;
+  }, 101);
+
 })
   .config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
 
@@ -38,6 +67,16 @@ angular.module('starter', ['ionic','starter.controllers','cargoship.controllers'
         url: '/homepage',
         templateUrl: 'templates/homepage.html',
         controller: 'homepageCtrl'
+      })
+      .state('loginPage', {
+        url: '/loginPage',
+        templateUrl: 'templates/loginPage.html',
+        controller:'loginPageCtrl'
+      })
+      .state('changePwd', {
+        url: '/changePwd/:account',
+        templateUrl: 'templates/changePwd.html',
+        controller:'changePwdCtrl'
       })
       /*由于没有分类暂时先去掉这个船舶种类的页面，html暂时不删除*/
       /*.state('cargoshipcheck', {
@@ -139,7 +178,7 @@ angular.module('starter', ['ionic','starter.controllers','cargoship.controllers'
    .state('searchResult', {
         url: '/searchResult/:searchGood/:searchUN/:dangerGoodClass',
         templateUrl: 'templates/search_result.html',
-        controller: 'searchResultCtrl'
+        controller: 'classSearchResultCtrl'
       })
    .state('dangergoods_emergency', {
         url: '/dangergoods_emergency',
@@ -166,6 +205,11 @@ angular.module('starter', ['ionic','starter.controllers','cargoship.controllers'
         templateUrl: 'templates/according_to_checktable.html',
         controller:'oilShipCheckCtrl'
       })
+      .state('dangergood_result', {
+        url: '/dangergood_result/:dangerSearchWord',
+        templateUrl: 'templates/dangergood_searchResult.html',
+        controller:'searchResultCtrl'
+      })
       .state('checktable_detail', {
         url: '/checktable_detail/:proName/:param',
         templateUrl: 'templates/checktable_detail.html',
@@ -183,6 +227,6 @@ angular.module('starter', ['ionic','starter.controllers','cargoship.controllers'
       })
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/homepage');
+    $urlRouterProvider.otherwise('/loginPage');
 
   });
