@@ -60,16 +60,17 @@ cordova build android --release --buildConfig=..\myBuildConfig.json
 ```
 
 JSON参考格式
+
 ```json
-{ 
-　　"android": { 
-　　　　"release": { 
-　　　　　　"keystore": "release-key.keystore", 
-　　　　　　"alias": "cordova-demo", 
-　　　　　　"storePassword": "testing", 
-　　　　　　"password": "testing" 
-　　　　}　　 
-　　} 
+{
+　　"android": {
+　　　　"release": {
+　　　　　　"keystore": "release-key.keystore",
+　　　　　　"alias": "cordova-demo",
+　　　　　　"storePassword": "testing",
+　　　　　　"password": "testing"
+　　　　}
+　　}
 }
 ```
 
