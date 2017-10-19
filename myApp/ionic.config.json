@@ -5,5 +5,11 @@
   "integrations": {
     "gulp": {},
     "cordova": {}
-  }
+  },
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
 }
