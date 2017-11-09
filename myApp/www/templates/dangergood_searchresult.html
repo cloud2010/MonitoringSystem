@@ -1,11 +1,12 @@
 <ion-view title="搜索结果">
   <ion-nav-buttons side="right">
-    <a class="button"  ui-sref="homepage">回到首页</a>
+    <a class="button button-clear"  style="font-size: 11px;">{{username}}</a>
+    <a class="icon button button-positive iconfont icon-wxbzhuye"  ui-sref="homepage"></a>
   </ion-nav-buttons>
   <ion-content>
     <div class="list list-borderless">
       <div class="row" style="flex-flow: row wrap"><!--//row wrap用于自动换行-->
-        <div class="item col col-50" ng-repeat="index in searchResult">
+        <div class="item item-text-wrap col col-50" ng-repeat="index in searchResult">
           <a class="button button-block button-positive" ng-click="goToDetail(index)">{{index}}</a>
         </div>
       </div>
